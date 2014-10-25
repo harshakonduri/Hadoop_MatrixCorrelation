@@ -1,0 +1,20 @@
+CREATE OR REPLACE PROCEDURE deleteprocs() RETURNS int4 LANGUAGE NZPLSQL AS
+BEGIN_PROC
+DECLARE
+statement varchar;
+BEGIN
+
+statement := 'drop table inputhdata';
+execute immediate statement;
+statement := 'drop table myordertable';
+execute immediate statement;
+statement := 'drop table myhverificationtable';
+execute immediate statement;
+statement := 'drop table outputhdata';
+execute immediate statement;
+statement := 'drop table roundmyh';
+execute immediate statement;
+statement := 'drop table roundmyhverification';
+execute immediate statement;
+END;
+END_PROC;

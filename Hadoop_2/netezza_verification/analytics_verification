@@ -1,0 +1,35 @@
+CREATE OR REPLACE PROCEDURE verifyanalytics(int4,int4) RETURNS int4 LANGUAGE NZPLSQL AS
+BEGIN_PROC
+DECLARE
+nrows ALIAS FOR $1;
+ncols ALIAS FOR $2;
+num int4;
+statement varchar;
+dtyped varchar;
+bef time;
+aft time;
+timedifcorr time;
+BEGIN
+statement := 'create table nzverify(op varchar(64000))';
+execute immediate statement;
+dtyped := ' double,';
+statement := 'insert into nzverify select nza..corr_matrix_agg(' ||  nrows || ',' || nrows || ',';
+FOR i IN 0 .. ncols-1
+LOOP
+statement := statement || 'K' || i || ',';
+END LOOP;
+FOR i IN 0 .. ncols-2
+LOOP
+statement := statement || 'K' || i || ',';
+END LOOP;
+statement := statement || 'K' || ncols-1 || ') from inputhdata' ;
+
+raise notice '%',statement;
+select current_time into bef;
+execute immediate statement;
+select current_time into aft;
+timedifcorr := aft-bef;
+raise notice '%', timedifcorr; 
+
+END;
+END_PROC;

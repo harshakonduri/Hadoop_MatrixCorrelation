@@ -1,0 +1,54 @@
+CREATE OR REPLACE PROCEDURE createproc(int4,int4) RETURNS int4 LANGUAGE NZPLSQL AS
+
+BEGIN_PROC
+
+DECLARE
+
+nrows ALIAS FOR $1;
+ncols ALIAS FOR $2;
+num int4;
+ipcreate varchar;
+statement varchar;
+verificationstatement varchar;
+selecttopkstatement varchar;
+orderstatement varchar;
+result_tbl varchar;
+parttwo varchar;
+partone varchar;
+toptable varchar;
+dtyped varchar;
+ityped varchar;
+bef time;
+aft time;
+timedifcorr time;
+timediftopk time;
+
+BEGIN
+statement := 'create table inputhdata (';
+ipcreate := 'create table outputhdata (';
+verificationstatement := 'create table myhverificationtable (';
+orderstatement := 'create table myordertable (I int4,J int4,RES double)';
+dtyped := ' double,';
+ityped := ' int4,'; 
+FOR i IN 0 .. ncols-1
+LOOP
+IF i < ncols-1
+THEN 
+statement := statement || 'K' || i || ityped;
+ipcreate := ipcreate || 'K' || i || dtyped;
+verificationstatement := verificationstatement || 'K' || i || dtyped;
+ELSE
+statement := statement || 'K' || i || ' int4)';
+ipcreate := ipcreate || 'K' || i || ' double)';
+verificationstatement := verificationstatement || 'K' || i || ' double)';
+END IF;
+END LOOP;
+
+execute immediate statement;
+execute immediate ipcreate;
+execute immediate verificationstatement;
+execute immediate orderstatement;
+
+
+END;
+END_PROC;

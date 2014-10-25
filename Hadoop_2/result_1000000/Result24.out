@@ -1,0 +1,79 @@
+SLURM Environment Variables:
+Job ID = 777569
+Job Name = org_gudelly
+Job Node List = d07n33s[01-02]
+Number of Nodes = 2
+Tasks per node = 1
+CPUs per task = 
+/scratch/jobid = /scratch/777569
+Submit Host = f07n05
+Submit Directory = /ifs/user/sreehars/myhadoop/var20/node2/v4
+
+
+MY_HADOOP_HOME=/util/myhadoop/myHadoop-0.2a
+HADOOP_HOME=/util/hadoop/hadoop-0.20.1
+MyHadoop config directory=/ifs/user/sreehars/myhadoop/var20/node2/v4/config
+Set up the configurations for myHadoop
+Number of nodes in nodelist=2
+Number of Hadoop nodes requested: 2
+Generation Hadoop configuration in directory: /ifs/user/sreehars/myhadoop/var20/node2/v4/config
+Not persisting HDFS state
+Received 2 nodes from PBS
+Master is: d07n33s01
+Configuring node: d07n33s01
+rm -rf /scratch/hadoop-sreehars/log; mkdir -p /scratch/hadoop-sreehars/log
+rm -rf /scratch/hadoop-sreehars/data; mkdir -p /scratch/hadoop-sreehars/data
+Configuring node: d07n33s02
+rm -rf /scratch/hadoop-sreehars/log; mkdir -p /scratch/hadoop-sreehars/log
+rm -rf /scratch/hadoop-sreehars/data; mkdir -p /scratch/hadoop-sreehars/data
+
+Format HDFS
+
+start dfs
+starting namenode, logging to /scratch/hadoop-sreehars/log/hadoop-sreehars_d07n33s01-namenode-d07n33s01.out
+d07n33s01: starting datanode, logging to /scratch/hadoop-sreehars/log/hadoop-sreehars_d07n33s01-datanode-d07n33s01.out
+d07n33s02: starting datanode, logging to /scratch/hadoop-sreehars/log/hadoop-sreehars_d07n33s02-datanode-d07n33s02.out
+d07n33s01: starting secondarynamenode, logging to /scratch/hadoop-sreehars/log/hadoop-sreehars_d07n33s01-secondarynamenode-d07n33s01.out
+
+start jobtracker (mapred)
+starting jobtracker, logging to /scratch/hadoop-sreehars/log/hadoop-sreehars_d07n33s01-jobtracker-d07n33s01.out
+d07n33s02: starting tasktracker, logging to /scratch/hadoop-sreehars/log/hadoop-sreehars_d07n33s02-tasktracker-d07n33s02.out
+d07n33s01: starting tasktracker, logging to /scratch/hadoop-sreehars/log/hadoop-sreehars_d07n33s01-tasktracker-d07n33s01.out
+
+copy file to dfs
+ls files in dfs
+
+Generation Time:5298
+Hadoop Time:612329
+0.002436115170645442 19
+0.002251925564156238 1014
+0.002163172943046848 1012
+0.002151615609826777 216
+0.002109352214506342 07
+0.0019211205960127401 1518
+0.0019038269859966465 417
+0.0017755193346782653 914
+0.001732294443605009 510
+0.0016943929966975252 1114
+Matrix Time:34
+OverAll Time:618472
+ctime
+ls files in dfs
+Copy output from HDFS to local directory
+stop jobtracker (mapred)
+stopping jobtracker
+d07n33s01: stopping tasktracker
+d07n33s02: stopping tasktracker
+stop dfs
+stopping namenode
+d07n33s01: stopping datanode
+d07n33s02: stopping datanode
+d07n33s01: stopping secondarynamenode
+Clean up
+Number of Hadoop nodes specified by user: 2
+Received 2 nodes from PBS
+Clean up node: d07n33s01
+rm -rf /scratch/hadoop-sreehars/data /scratch/hadoop-sreehars/log
+Clean up node: d07n33s02
+rm -rf /scratch/hadoop-sreehars/data /scratch/hadoop-sreehars/log
+

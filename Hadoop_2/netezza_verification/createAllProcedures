@@ -1,0 +1,4 @@
+nzsql -f createProcedure -pw $1;
+nzsql -f deleteProcs -pw $1;
+nzsql -f roundData -pw $1;
+nzsql -f resultProcedure -pw $1;

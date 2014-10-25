@@ -1,0 +1,42 @@
+CREATE OR REPLACE PROCEDURE round(int4,int4) RETURNS int4 LANGUAGE NZPLSQL AS
+
+BEGIN_PROC
+
+DECLARE
+nrows ALIAS FOR $1;
+ncols ALIAS FOR $2;
+num int4;
+ipcreate varchar;
+statement varchar;
+verificationstatement varchar;
+selecttopkstatement varchar;
+orderstatement varchar;
+result_tbl varchar;
+parttwo varchar;
+partone varchar;
+toptable varchar;
+dtyped varchar;
+bef time;
+aft time;
+timedifcorr time;
+timediftopk time;
+
+BEGIN
+partone := 'create table roundmyh as select ';
+FOR i IN 0 .. ncols-2
+LOOP
+partone := partone || 'nza..round(' || 'K' || i || ',' || 6 || ') as K' || i ||  ',';
+END LOOP;
+partone := partone || 'nza..round(K' || ncols-1 || ',' || 6 || ') as K' || ncols-1 || ' from outputhdata';
+execute immediate partone;  
+
+partone := 'create table roundmyhverification as select ';
+FOR i IN 0 .. ncols-2
+LOOP
+partone := partone || 'nza..round(' || 'K' || i || ',' || 6 || ') as K' || i ||  ',';
+END LOOP;
+partone := partone || 'nza..round(K' || ncols-1 || ',' || 6 || ') as K' || ncols-1 || ' from myhverificationtable';
+execute immediate partone;  
+
+END;
+END_PROC;

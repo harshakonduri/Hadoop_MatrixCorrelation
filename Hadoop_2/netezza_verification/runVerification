@@ -1,0 +1,3 @@
+nzsql -c 'call verifyhadoop('$1','$2')' -pw $3;
+nzsql -c 'call round('$1','$2')' -pw $3;
+nzsql -c '(select * from roundmyh minus select * from roundmyhverification) UNION (select * from roundmyhverification minus select * from roundmyh)' -pw $3 ;

@@ -1,0 +1,1 @@
+nzsql -c 'call deleteprocs()' -pw $1;

@@ -1,0 +1,1 @@
+nzsql -c 'call createproc('$1','$2')' -pw $3;

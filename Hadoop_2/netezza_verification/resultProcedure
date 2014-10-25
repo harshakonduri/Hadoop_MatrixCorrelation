@@ -1,0 +1,58 @@
+CREATE OR REPLACE PROCEDURE verifyhadoop(int4,int4) RETURNS int4 LANGUAGE NZPLSQL AS
+
+BEGIN_PROC
+
+DECLARE
+
+nrows ALIAS FOR $1;
+ncols ALIAS FOR $2;
+num int4;
+ipcreate varchar;
+statement varchar;
+verificationstatement varchar;
+selecttopkstatement varchar;
+orderstatement varchar;
+result_tbl varchar;
+parttwo varchar;
+partone varchar;
+toptable varchar;
+dtyped varchar;
+bef time;
+aft time;
+timedifcorr time;
+timediftopk time;
+
+BEGIN
+select current_time into bef;
+FOR i IN 0 .. ncols-1
+LOOP
+verificationstatement := 'insert into myhverificationtable select ';
+FOR j IN 0 .. ncols-1
+LOOP
+IF i=j
+THEN
+IF j < ncols-1
+THEN
+verificationstatement := verificationstatement || 1 || ',';   
+ELSE
+verificationstatement := verificationstatement || 1 || '';
+END IF;
+ELSE
+IF j < ncols-1
+THEN
+verificationstatement := verificationstatement || 'nza..corr_agg(K' || i || ',K' || j || '),';
+ELSE
+verificationstatement := verificationstatement || 'nza..corr_agg(K' || i || ',K' || j || ')';
+END IF;
+END IF;
+END LOOP;
+verificationstatement := verificationstatement || ' from inputhdata';
+execute immediate verificationstatement;
+END LOOP;
+
+select current_time into aft;
+timedifcorr := aft-bef;
+raise notice 'Verification Times : %', timedifcorr; 
+
+END;
+END_PROC;

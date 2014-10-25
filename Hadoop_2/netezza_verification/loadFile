@@ -1,0 +1,2 @@
+nzload -df $1 -db SREEHARS_DB -u sreehars -pw $3 -t inputhdata -delim ' '
+nzload -df $2 -db SREEHARS_DB -u sreehars -pw $3 -t outputhdata -delim ' '
